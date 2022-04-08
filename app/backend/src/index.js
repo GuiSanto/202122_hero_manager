@@ -7,7 +7,6 @@ const passportLocal = require('passport-local').Strategy;
 const passportHTTPBearer = require('passport-http-bearer').Strategy;
 const mongo = require('./database.js');
 const agenda = require('./agenda.js');
-const marvel = require('./marvel.js');
 const path = require('path');
 
 
@@ -67,14 +66,7 @@ const start = async() => {
         }); 
     });
 
-    app.post('/api/search', async(request, response) => {
-        let search = request.body.search;
-        console.log(`[Search] ${search}`);
-        let limit = request.body.limit || 10;
-        let offset = request.body.offset || 1;
-        let data = await marvel.searchComics(search, limit, offset);
-        return response.send(data);
-    });
+
 
     app.post('/api/local', passport.authenticate('bearer', { session: false }), async(request, response) => {
         let search = request.body.search;
@@ -102,11 +94,7 @@ const start = async() => {
         return response.send(result);
     });
 
-    app.get('/api/comics/:seriesID', passport.authenticate('bearer', { session: false }), async(request, response) => {
-        let comicsDocuments = await mongo.getComicsForSeries(db.db, request.params.seriesID);
-        console.log("[Tracking] GET")
-        return response.send(comicsDocuments);
-    });
+
 
 
     app.get('/api/statistics', async(request, response) => {
