@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hero-manager-database
+  labels:
+    name: hero-manager-database
+spec:
+  selector:
+    matchLabels:
+      name: hero-manager-database
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        name: hero-manager-database
+    spec:
+      containers:
+        - name: hero-manager-database
+          image: mongo
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 27017
+          resources: {}
+          env:
+            - name: DB_HOST
+              value: hero-manager-database
+            - name: DB_PORT
+              value: "27017"
+            - name: DB_NAME
+              value: heroManager
+            - name: PORT
+              value: "27017"

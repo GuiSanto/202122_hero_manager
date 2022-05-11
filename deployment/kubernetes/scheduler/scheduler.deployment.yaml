@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hero-manager-scheduler
+  labels:
+    name: hero-manager-scheduler
+spec:
+  selector:
+    matchLabels:
+      name: hero-manager-scheduler
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        name: hero-manager-scheduler
+    spec:
+      containers:
+        - name: hero-manager-scheduler
+          image: docker.io/library/hero_manager_scheduler_image
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8084
+          resources: {}
+          env:
+            - name: DB_HOST
+              value: hero-manager-database
+            - name: DB_PORT
+              value: "27017"
+            - name: DB_NAME
+              value: heroManager
+            - name: PORT
+              value: "8084"
+            - name: MARVEL_API_URL
+              value: http://hero-manager-marvel:8082
+            - name: STATISTICS_API_URL
+              value: http://hero-manager-statistics:8083

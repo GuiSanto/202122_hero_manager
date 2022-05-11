@@ -1,0 +1,17 @@
+{
+    "name": "marvel_hero_scheduler",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "agenda": "^4.1.2",
+        "axios": "^0.21.1",
+        "cors": "^2.8.5",
+        "express": "^4.17.1",
+        "mongodb": "^3.6.6",
+        "request": "^2.88.2",
+        "bcryptjs": "^2.4.3"
+    }
+}

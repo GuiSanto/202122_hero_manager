@@ -13,7 +13,7 @@ services:
   volumes:
     - ../../app/backend/src:/app/backend/src
   ports:
-    - "8081:8080"
+    - "8081:8081"
   depends_on:
     - "hero_manager_database"
   environment:
@@ -39,6 +39,36 @@ services:
    - ../../app/services/marvel/src:/app/services/marvel/src
   env_file: .env
   ports:
-   - "8082:8080"
+   - "8082:8082"
   environment:
    - MARVEL_URL=https://gateway.marvel.com
+ hero_manager_scheduler:
+  image: hero_manager_scheduler
+  container_name: hero_manager_scheduler
+  build:
+   context: ../../app/services/scheduler
+   dockerfile: ../../../deployment/local/services/scheduler/Dockerfile
+  volumes:
+   - ../../app/services/scheduler/src:/app/services/scheduler/src
+  env_file: .env
+  ports:
+   - "8084:8084"
+  environment:
+    - DB_HOST=hero_manager_database
+    - DB_PORT=27017
+    - DB_NAME=heroManager
+ hero_manager_statistics:
+  image: hero_manager_statistics
+  container_name: hero_manager_statistics
+  build:
+   context: ../../app/services/statistics
+   dockerfile: ../../../deployment/local/services/statistics/Dockerfile
+  volumes:
+   - ../../app/services/statistics/src:/app/services/statistics/src
+  env_file: .env
+  ports:
+   - "8083:8083"
+  environment:
+    - DB_HOST=hero_manager_database
+    - DB_PORT=27017
+    - DB_NAME=heroManager

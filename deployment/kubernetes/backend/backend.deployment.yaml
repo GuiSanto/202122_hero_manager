@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hero-manager-backend
+  labels:
+    name: hero-manager-backend
+spec:
+  selector:
+    matchLabels:
+      name: hero-manager-backend
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        name: hero-manager-backend
+    spec:
+      containers:
+        - name: hero-manager-backend
+          image: docker.io/library/hero_manager_backend_image
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8081
+          resources: {}
+          env:
+            - name: DB_HOST
+              value: hero-manager-database
+            - name: DB_PORT
+              value: "27017"
+            - name: DB_NAME
+              value: heroManager
+            - name: PORT
+              value: "8081"

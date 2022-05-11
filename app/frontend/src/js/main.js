@@ -1,7 +1,7 @@
 //###############
 //CHANGE ME
-const BACKEND_URL = 'http://localhost:8081';
-const MARVEL_URL = 'http://localhost:8082';
+const BACKEND_URL = '';
+const MARVEL_URL = '';
 //###############
 
 const insertSearchResult = (comic, tbody, local) => {

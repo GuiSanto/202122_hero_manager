@@ -68,6 +68,7 @@ const connect = () => {
     return new Promise((resolve, reject) => {
         console.log("Connecting to " + url)
         client = new MongoClient(url, mongoDBOptions);
+        
         const mongoConnect = () => client.connect(async(err) => {
             if (err) {
                 setTimeout(mongoConnect, 1000);
